@@ -1,6 +1,7 @@
 package com.improving.tagcli.database;
 
 
+import com.improving.tagcli.models.Emote;
 import com.improving.tagcli.models.Weapon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,12 +47,14 @@ public class DatabaseClient {
         }
         return Collections.EMPTY_LIST;
     }
-    public void insertIntoTable() {
+    public void insertEmoteIntoTable(Emote emote) {
         try {
             logger.info("GOT IT!");
-            int rowsAfftected = jdbcTemplate.update(
-                    "INSERT INTO weapon (Name, Area, ItemType) VALUES ('SMALLISH DAGGER', 'Dagger Shop', 'Weapon')");
-            logger.info("Rows Affected: {} ", rowsAfftected);
+            int rowsAffected = jdbcTemplate.update(
+                    "INSERT INTO emote (Prompt, Text) VALUES ('"  + emote.getPrompt() + "', '" + emote.getText() + "')"
+            );
+                    logger.info("SUCCESS!");
+                    logger.info("Rows Affected: {} ", rowsAffected);
         } catch (DataAccessException e) {
             logger.error("Exception thrown in JDBC: ", e);
         }
